@@ -18,7 +18,7 @@ linear_value_image= np.empty([pixel,pixel],dtype=float)
 opticalactivity_value_image= np.empty([pixel,pixel],dtype=float)
 theta_value_image= np.empty([pixel,pixel],dtype=float)
 
-X = 0
+X = pixel
 for m in range(pixel):
     for n in range(pixel):
         sample = Mueller()
@@ -50,9 +50,8 @@ for m in range(pixel):
         linear_value_image[m,n]=linear_value
         opticalactivity_value_image[m,n]=opticalactivity_value
         theta_value_image[m,n]=theta_value
-        X += 1
     os.system('cls' if os.name == 'nt' else 'clear')
-    print('目前進度：',round(X/(m+n)-0.5,2),'%','='*int(X/(m+n+1)),'>')
+    print('目前進度：',round(m/X*100,2),'%','='*int(m/X*100),'>')
 
 export(-1,muellerimage,'Mueller Matrix','polar_decomposition')
 export(-1,diattenuationMatriximage,'Diattenuation Matrix','polar_decomposition')
