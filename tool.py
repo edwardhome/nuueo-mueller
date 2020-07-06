@@ -23,9 +23,9 @@ def initial():
     else:
         pass
     os.chdir(path)
-def imageread():
+def imageread(filename_extension):
     path = 'picture'
-    image0 = np.array(cv.imread(path + '/0.tif' ,2),dtype=float)
+    image0 = np.array(cv.imread(path + '/0.'+filename_extension,2),dtype=float)
     pr =int(image0.shape[1]/2)
     #裁切圖片
     image_range = int(input("請輸入預計解析度 = "))
@@ -34,22 +34,22 @@ def imageread():
     max_piexl_X = int(pr+image_range/2)
     max_piexl_Y = int(pr+image_range/2)
     data0 = image0[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]
-    data1 = np.array(cv.imread(path + '/1.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data2 = np.array(cv.imread(path + '/2.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data3 = np.array(cv.imread(path + '/3.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data4 = np.array(cv.imread(path + '/4.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data5 = np.array(cv.imread(path + '/5.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data6 = np.array(cv.imread(path + '/6.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data7 = np.array(cv.imread(path + '/7.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data8 = np.array(cv.imread(path + '/8.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data9 = np.array(cv.imread(path + '/9.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data10 = np.array(cv.imread(path + '/10.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data11 = np.array(cv.imread(path + '/11.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data12 = np.array(cv.imread(path + '/12.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data13 = np.array(cv.imread(path + '/13.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data14 = np.array(cv.imread(path + '/14.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data15 = np.array(cv.imread(path + '/15.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
-    data16 = np.array(cv.imread(path + '/16.tif' ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data1 = np.array(cv.imread(path + '/1.'+filename_extension ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data2 = np.array(cv.imread(path + '/2.'+filename_extension ,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data3 = np.array(cv.imread(path + '/3.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data4 = np.array(cv.imread(path + '/4.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data5 = np.array(cv.imread(path + '/5.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data6 = np.array(cv.imread(path + '/6.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data7 = np.array(cv.imread(path + '/7.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data8 = np.array(cv.imread(path + '/8.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data9 = np.array(cv.imread(path + '/9.' +filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data10 = np.array(cv.imread(path + '/10.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data11 = np.array(cv.imread(path + '/11.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data12 = np.array(cv.imread(path + '/12.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data13 = np.array(cv.imread(path + '/13.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data14 = np.array(cv.imread(path + '/14.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data15 = np.array(cv.imread(path + '/15.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
+    data16 = np.array(cv.imread(path + '/16.'+filename_extension,2),dtype=float)[min_piexl_Y:max_piexl_Y,min_piexl_X:max_piexl_X]-data0
     data = np.array([data0,data1,data2,data3,data4,data5,data6,data7,data8,data9,data10,data11,data12,data13,data14,data15,data16],dtype=float)
     return data
 def export(typex,data,name,path):

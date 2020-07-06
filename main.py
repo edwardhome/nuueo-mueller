@@ -4,7 +4,7 @@ from nuueomueller import Luchiman, Mueller
 from tool import  initial, imageread,im_show, export
 
 initial()
-data = imageread()
+data = imageread('tif')
 pixel =data[0].shape[0]
 muellerimage = np.empty([4*pixel,4*pixel],dtype=float)
 diattenuationMatriximage = np.empty([4*pixel,4*pixel],dtype=float)
