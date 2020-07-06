@@ -52,7 +52,7 @@ for m in range(pixel):
         theta_value_image[m,n]=theta_value
         X += 1
     os.system('cls' if os.name == 'nt' else 'clear')
-    print('目前進度：',round(X/(m+n)-0.5,2),'%')
+    print('目前進度：',round(X/(m+n)-0.5,2),'%','='*int(X/(m+n+1)),'>')
 
 export(-1,muellerimage,'Mueller Matrix','polar_decomposition')
 export(-1,diattenuationMatriximage,'Diattenuation Matrix','polar_decomposition')
