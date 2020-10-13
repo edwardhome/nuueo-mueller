@@ -38,7 +38,7 @@ for i in range(num):
     #linear_value += [lc.retardancevalue('linear')]
     #opticalactivity_value += [lc.retardancevalue('opticalactivity')]
     #theta_value += [lc.retardancevalue('theta')]
-'''
+
 plt.plot(wavelength,D_value,'*')
 plt.plot(wavelength,P_value,'-')
 plt.plot(wavelength,Delta_value)
@@ -48,4 +48,3 @@ plt.xlabel('Wavelength')
 plt.ylabel('Intensity')
 plt.ylim([-1,1])
 plt.show()
-'''
