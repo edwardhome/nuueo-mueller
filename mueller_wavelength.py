@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
-
 from nuueomueller import Luchiman, Mueller
 
 
@@ -91,9 +90,18 @@ depolarization = pd.DataFrame(depolarization)
 depolarization = depolarization.T
 depolarization.index= wavelength
 depolarization.columns=element
+'''
 #儲存Excel
 with pd.ExcelWriter('output.xlsx') as writer:
     data.to_excel(writer,sheet_name='DATA')
     diattenuation.to_excel(writer,sheet_name='diattenuation')
     retardance.to_excel(writer,sheet_name='retardance')
     depolarization.to_excel(writer,sheet_name='depolarization')
+'''
+
+#儲存Csv
+
+data.to_csv('DATA.csv')
+diattenuation.to_csv('diattenuation.csv')
+retardance.to_csv('retardance.csv')
+depolarization.to_csv('depolarization.csv')
