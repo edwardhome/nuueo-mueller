@@ -1,7 +1,7 @@
 import os
 import sys
 import numpy as np
-from cv2 import cv2 as cv
+import cv2 as cv
 from matplotlib import pyplot as plt 
 def initial():
     path = os.getcwd()

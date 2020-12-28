@@ -1,5 +1,6 @@
 import numpy as np
 import math 
+from numpy.linalg import inv
 
 def sqrt(num):
     return num**0.5
@@ -43,27 +44,15 @@ class Luchiman(Mueller):
         self.diattenuationMatrix[0] = np.array([1,self.MuellerMatrix[0,1],self.MuellerMatrix[0,2],self.MuellerMatrix[0,3]])
         self.diattenuationMatrix[1:4,0] = np.array([self.MuellerMatrix[0,1],self.MuellerMatrix[0,2],self.MuellerMatrix[0,3]])
         self.diattenuationMatrix[1:4,1:4] = np.array(mD)
-        self.D_h = self.diattenuationMatrix[0,1]
-        self.D_45 = self.diattenuationMatrix[0,2]
-        self.D_c = self.diattenuationMatrix[0,3]
-        self.D_L = sqrt(self.D_45**2+self.D_h**2)
-        self.doubleTheta = (0.5*math.atan(abs(self.D_45)/abs(self.D_h)))*math.pi/180
+
+        
+        
         if output == 'D_value':
             return self.D_value
         elif output == 'P_value':
             return self.P_value
         elif output == 'matrix':
             return self.diattenuationMatrix
-        elif output =='D_H':
-            return self.D_h
-        elif output =='D_45':
-            return self.D_45
-        elif output =='D_C':
-            return self.D_c
-        elif output =='D_L':
-            return self.D_L
-        elif output =='doubleTheta':
-            return self.doubleTheta
         else:
             print('雙衰減係數計算輸出指令錯誤')
 
@@ -147,4 +136,69 @@ class Differential(Mueller):
     def __init__(self,MuellerMatrix):
         super().__init__()
         self.MuellerMatrix = MuellerMatrix
-        
+    def differential(self,output):
+        #求對數矩陣
+        self.Gmatrix = np.array([(1,0,0,0),(0,-1,0,0),(0,0,-1,0),(0,0,0,-1)])
+        oLVb,self.LVa=np.linalg.eig(self.MuellerMatrix) #求穆勒矩陣特徵向量
+        self.LVb=np.array([(oLVb[0],0,0,0),(0,oLVb[1],0,0),(0,0,oLVb[2],0),(0,0,0,oLVb[3])])
+        self.LVb1=np.log(self.LVb) #利用對數函式計算微分矩陣之特徵值
+        self.LVb1[self.LVb1>=1000000000000000]=0
+        self.LVb1[self.LVb1<=-1000000000000000]=0
+
+        self.InvLVa=np.linalg.inv(self.LVa)
+        self.InvLVa[2,0]=-self.InvLVa[2,0]
+        self.InvLVa[3,0]=-self.InvLVa[3,0]
+
+        self.L= self.LVa.dot(self.LVb1).dot(self.InvLVa)
+        self.Lm= 0.5*(self.L-self.Gmatrix.dot((self.L).T).dot(self.Gmatrix))
+        self.Lu= 0.5*(self.L+self.Gmatrix.dot((self.L).T).dot(self.Gmatrix))
+
+        self.differentialmatrix = np.array(self.L)
+        self.Lorentz_m = np.array(self.Lm)
+        self.Lorentz_u = np.array(self.Lu)
+
+        if output == 'differentialmatrix':
+            return self.differentialmatrix
+        elif output == 'Lorentz_m':
+            return self.Lorentz_m
+        elif output == 'Lorentz_u':
+            return self.Lorentz_u
+        else:
+            print('對數矩陣計算輸出指令錯誤')
+    def diattenuatuon(self,output):
+	    #求衰減係數
+        self.d=sqrt((self.Lm[0,1])**2+(self.Lm[0,2])**2+(self.Lm[0,3])**2)
+        self.D=math.tanh(self.d)
+
+        if output == 'D':
+            return self.D
+        else:
+            print('衰減係數計算輸出指令錯誤')
+    def depolarization(self,output):
+	    #求去極化能力
+        self.Delta =1-(1/3)*(math.exp(-self.Lu[1,1])+math.exp(-self.Lu[2,2])+math.exp(-self.Lu[3,3]))
+        if output == 'Delta':
+            return self.Delta
+        else:
+            print('去極化能力計算輸出指令錯誤')
+    def retardance(self,output):
+	    #相位延遲能力
+        self.delta = sqrt((self.Lm[3,1])**2+(self.Lm[3,2])**2)
+        self.Psi = 0.5*self.Lm[2,1]
+        self.theta = 0.5*math.atan(self.Lm[3,1]/self.Lm[3,2])
+
+        self.R = sqrt(self.delta**2 + 4*self.Psi**2)#retardance 相位延遲矩陣
+        self.Psi = (180/math.pi)*self.Psi#Optical rotation 旋光度矩陣
+        self.delta = (180/math.pi)*self.delta#Linear retardance 線性延遲矩陣
+        self.theta = (180/math.pi)*self.theta#orientation 方位角矩陣
+        self.R = sqrt(self.delta**2 + 4*self.Psi**2)
+        if output == 'R':
+            return self.R
+        elif output == 'delta':
+            return self.delta
+        elif output == 'Psi':
+            return self.Psi
+        elif output == 'theta':
+            return self.theta
+        else:
+            print('#相位延遲能力計算輸出指令錯誤')
