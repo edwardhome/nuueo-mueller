@@ -67,7 +67,7 @@ def export(typex,data,name,path):
         pass
     plt.axis('off')
     plt.colorbar()
-    plt.savefig('MuellerMatrix\\'+path+'\\'+name+'.png')
+    plt.savefig(f'MuellerMatrix\\{path}\\{name}.png')
     plt.close()
     return 'finsh'
 def im_show(typex,data,name):
